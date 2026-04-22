@@ -4,216 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VELOORIA | THE NEW ERA</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
     
     <style>
-        /* 1. Global Setup - الفخامة المطلقة */
-        * { 
-            margin: 0; padding: 0; box-sizing: border-box;
-            -webkit-user-select: none; user-select: none;
-        }
+        /* 1. إعدادات عامة (ماتقيسهاش) */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+        body { background: #000; color: #fff; font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
 
-        body { 
-            background: #000; 
-            overflow-x: hidden; 
-            font-family: 'Montserrat', sans-serif;
-            color: #fff;
-            scroll-behavior: smooth;
-        }
+        /* 2. واجهة العطور الأربعة */
+        .ultra-wrapper { height: 100vh; width: 100%; display: flex; flex-direction: column; background: #000; }
+        @media (min-width: 992px) { .ultra-wrapper { flex-direction: row; } }
 
-        /* الكورسر المخصص (فقط للحاسوب) */
-        #custom-cursor {
-            position: fixed; width: 10px; height: 10px; background: #fff;
-            border-radius: 50%; pointer-events: none; z-index: 9999;
-        }
+        .scent-gate { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: flex 0.8s cubic-bezier(0.8, 0, 0.2, 1); border-bottom: 0.1px solid rgba(255,255,255,0.05); cursor: pointer; }
+        @media (min-width: 992px) { .scent-gate { border-bottom: none; border-right: 0.1px solid rgba(255,255,255,0.05); } }
+        .scent-gate:hover { flex: 5; }
 
-        /* 2. The Hero: Ultra Wrapper */
-        .ultra-wrapper {
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            flex-direction: column; /* موبيل */
-            background: #000;
-        }
+        .scent-name { font-family: 'Cinzel', serif; font-size: clamp(1.5rem, 10vw, 4rem); color: rgba(255,255,255,0.05); transition: 0.8s; letter-spacing: 20px; white-space: nowrap; }
+        .scent-gate:hover .scent-name { color: var(--color); opacity: 0.3; letter-spacing: 40px; filter: blur(2px); }
 
-        @media (min-width: 992px) {
-            .ultra-wrapper { flex-direction: row; }
-        }
+        .bottle-hero { position: absolute; height: 70%; opacity: 0; transform: scale(0.5) rotate(15deg); transition: 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
+        .scent-gate:hover .bottle-hero { opacity: 1; transform: scale(1.15) rotate(0deg); filter: brightness(1.2) drop-shadow(0 0 30px var(--color)); }
 
-        .scent-gate {
-            flex: 1;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transition: flex 0.8s cubic-bezier(0.8, 0, 0.2, 1);
-            border-bottom: 0.1px solid rgba(255,255,255,0.05);
-            cursor: pointer;
-        }
+        .explore-btn { position: absolute; bottom: 5%; padding: 12px 30px; border: 1px solid #fff; color: #fff; font-size: 0.6rem; letter-spacing: 4px; opacity: 0; transition: 0.5s; text-transform: uppercase; }
+        .scent-gate:hover .explore-btn { opacity: 1; bottom: 10%; }
 
-        @media (min-width: 992px) {
-            .scent-gate { border-bottom: none; border-right: 0.1px solid rgba(255,255,255,0.05); }
-        }
+        /* الألوان */
+        .sauvage { --color: #4A90E2; } .stronger { --color: #FF6B00; } .libre { --color: #D4AF37; } .goodgirl { --color: #9D00FF; }
 
-        .scent-gate:hover, .scent-gate:active {
-            flex: 5;
-        }
+        /* 3. قسم الهيبة (VELOORIA LABS) */
+        .authority-section { padding: 80px 5%; background: #000; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .stat-box { text-align: center; min-width: 200px; }
+        
+        .scanning-circle { width: 120px; height: 120px; border: 1px solid #c5a059; border-radius: 50%; position: relative; animation: scan 4s linear infinite; margin: 0 auto 20px; }
+        @keyframes scan { 0% { transform: rotate(0deg); box-shadow: 0 0 10px #c5a059; } 100% { transform: rotate(360deg); } }
 
-        /* اسم العطر الخلفي */
-        .scent-name {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(1.5rem, 10vw, 4rem);
-            color: rgba(255,255,255,0.05);
-            z-index: 1;
-            transition: all 0.8s ease;
-            letter-spacing: 20px;
-            white-space: nowrap;
-        }
+        .stat-box h2 { font-family: 'Cinzel', serif; font-size: 2.5rem; letter-spacing: 2px; }
+        .stat-box p { font-size: 0.6rem; letter-spacing: 5px; color: #444; margin-top: 10px; }
 
-        .scent-gate:hover .scent-name, .scent-gate:active .scent-name {
-            color: var(--color);
-            opacity: 0.3;
-            letter-spacing: 40px;
-            filter: blur(2px);
-        }
-
-        /* القرعة */
-        .bottle-hero {
-            position: absolute;
-            height: 70%;
-            z-index: 2;
-            opacity: 0;
-            transform: scale(0.5) rotate(15deg);
-            filter: brightness(0) contrast(2);
-            transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-        }
-
-        .scent-gate:hover .bottle-hero, .scent-gate:active .bottle-hero {
-            opacity: 1;
-            transform: scale(1.15) rotate(0deg);
-            filter: brightness(1.2) drop-shadow(0 0 30px var(--color));
-        }
-
-        /* زر الإكتشاف */
-        .explore-btn {
-            position: absolute;
-            bottom: 5%;
-            padding: 12px 30px;
-            border: 1px solid #fff;
-            color: #fff;
-            font-size: 0.6rem;
-            letter-spacing: 4px;
-            opacity: 0;
-            transition: 0.5s;
-            z-index: 5;
-            text-transform: uppercase;
-        }
-
-        .scent-gate:hover .explore-btn {
-            opacity: 1;
-            bottom: 10%;
-        }
-
-        /* الألوان والهويات */
-        .sauvage { --color: #4A90E2; }
-        .stronger { --color: #FF6B00; }
-        .libre { --color: #D4AF37; }
-        .goodgirl { --color: #9D00FF; }
-
-        /* 3. Product Sections */
-        .product-section {
-            min-height: 100vh;
-            padding: 100px 10%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            background: #050505;
-        }
-
-        .product-section h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--color);
-        }
-
-        .placeholder-text {
-            color: #666;
-            text-align: center;
-            max-width: 600px;
-        }
+        /* 4. أقسام تفاصيل المنتجات */
+        .product-section { min-height: 100vh; padding: 100px 10%; display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        .product-section h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 4rem); color: var(--color); margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
-    <div id="custom-cursor"></div>
-
     <div class="ultra-wrapper">
         <div class="scent-gate sauvage" onclick="scrollToSection('sauvage-details')">
             <h1 class="scent-name">ELIXIR</h1>
-            <img src="assets/sauvage-bottle.png" class="bottle-hero" alt="Sauvage">
+            <img src="assets/sauvage.png" class="bottle-hero">
             <div class="explore-btn">ORDER THE LEGEND</div>
         </div>
-
         <div class="scent-gate stronger" onclick="scrollToSection('stronger-details')">
             <h1 class="scent-name">INTENSELY</h1>
-            <img src="assets/stronger-bottle.png" class="bottle-hero" alt="Stronger">
+            <img src="assets/stronger.png" class="bottle-hero">
             <div class="explore-btn">FEEL THE POWER</div>
         </div>
-
         <div class="scent-gate libre" onclick="scrollToSection('libre-details')">
             <h1 class="scent-name">LIBRE</h1>
-            <img src="assets/libre-bottle.png" class="bottle-hero" alt="Libre">
+            <img src="assets/libre.png" class="bottle-hero">
             <div class="explore-btn">CLAIM FREEDOM</div>
         </div>
-
         <div class="scent-gate goodgirl" onclick="scrollToSection('goodgirl-details')">
             <h1 class="scent-name">CAROLINA</h1>
-            <img src="assets/goodgirl-bottle.png" class="bottle-hero" alt="Good Girl">
+            <img src="assets/goodgirl.png" class="bottle-hero">
             <div class="explore-btn">BE BADLY GOOD</div>
         </div>
     </div>
 
+    <section class="authority-section">
+        <div class="stat-box">
+            <div class="scanning-circle">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.5rem; color: #c5a059;">ANALYZING...</div>
+            </div>
+            <h4 style="font-family: 'Cinzel'; font-size: 0.8rem;">VELOORIA LABS</h4>
+            <p>PRECISION 99.9%</p>
+        </div>
+
+        <div class="stat-box">
+            <h2 id="live-clock">00:00:00</h2>
+            <p>CASABLANCA HQ</p>
+        </div>
+
+        <div class="stat-box">
+            <h2>2026</h2>
+            <p>GLOBAL EDITION</p>
+        </div>
+    </section>
+
     <section id="sauvage-details" class="product-section" style="--color: #4A90E2;">
         <h2>SAUVAGE ELIXIR</h2>
-        <p class="placeholder-text">[ هنا حط الفورم ديال الطلب والمعلومات ديال Sauvage ]</p>
+        <p>هنا حط الفورم والوصف ديال صوفاج</p>
     </section>
 
     <section id="stronger-details" class="product-section" style="--color: #FF6B00;">
         <h2>STRONGER WITH YOU</h2>
-        <p class="placeholder-text">[ هنا حط الفورم ديال الطلب والمعلومات ديال Stronger ]</p>
-    </section>
-
-    <section id="libre-details" class="product-section" style="--color: #D4AF37;">
-        <h2>LIBRE INTENSE</h2>
-        <p class="placeholder-text">[ هنا حط الفورم ديال الطلب والمعلومات ديال Libre ]</p>
-    </section>
-
-    <section id="goodgirl-details" class="product-section" style="--color: #9D00FF;">
-        <h2>GOOD GIRL</h2>
-        <p class="placeholder-text">[ هنا حط الفورم ديال الطلب والمعلومات ديال Good Girl ]</p>
+        <p>هنا حط الفورم والوصف ديال سترونكر</p>
     </section>
 
     <script>
-        // 1. Smooth Scroll Function
+        // 1. كود السكرول (باش يهبط للمنتج فاش تبرك عليه)
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 2. Custom Cursor Logic
-        const cursor = document.getElementById('custom-cursor');
-        if (window.innerWidth > 992) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-        } else {
-            cursor.style.display = 'none';
+        // 2. كود الساعة الحية (باش تبان الهيبة التقنية)
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('fr-FR', { timeZone: 'Africa/Casablanca' });
+            document.getElementById('live-clock').textContent = timeString;
         }
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 
 </body>
