@@ -1,189 +1,159 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VELOORIA | THE SCENT MULTIVERSE</title>
-    
+    <title>VELOORIA | THE LUXURY COLLECTION</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
-
+    
     <style>
-        /* [1] الأساسيات - هادشي كيعطي السلاسة وماخصوش يتمسح */
+        :root { --main-bg: #000; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #000; /* الخلفية الكحلة الأساسية */
-            color: #fff; 
-            font-family: 'Montserrat', sans-serif; 
-            overflow-x: hidden; 
-            scroll-behavior: smooth;
-        }
+        body { background: var(--main-bg); color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        /* [2] تأثير "Black Velvet" - خلفية كتحرك خفيف بزاف كتعطي فخامة */
-        .velvet-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
-            z-index: -1;
-        }
+        /* [1] الواجهة الرئيسية (الأربعة عطور) */
+        .gate-container { height: 100vh; display: flex; flex-direction: column; transition: 0.8s; }
+        @media (min-width: 992px) { .gate-container { flex-direction: row; } }
 
-        /* [3] واجهة اختيار العطور (The Gate) */
-        .main-gate {
-            height: 100vh;
-            display: flex;
-            flex-direction: column; /* للموبيل */
+        .scent-card { 
+            flex: 1; position: relative; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; overflow: hidden; transition: 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 0.5px solid rgba(255,255,255,0.05);
         }
-        @media (min-width: 992px) { .main-gate { flex-direction: row; } }
+        .scent-card:hover { flex: 3; }
 
-        .scent-option {
-            flex: 1;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-            cursor: pointer;
-            border: 0.1px solid rgba(255,255,255,0.05);
-        }
-        /* فاش كتحط السهم (Hover) - العطر كيتوسع */
-        .scent-option:hover { flex: 4; }
+        .scent-card h2 { font-family: 'Cinzel'; font-size: 1.2rem; letter-spacing: 3px; z-index: 2; text-align: center; }
+        .scent-card img { position: absolute; height: 60%; opacity: 0.1; transition: 0.7s; transform: scale(0.8); }
+        .scent-card:hover img { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 20px var(--accent)); }
 
-        .scent-option h2 {
-            font-family: 'Cinzel';
-            font-size: 1.5rem;
-            letter-spacing: 5px;
-            z-index: 2;
-            opacity: 0.5;
-            transition: 0.5s;
-        }
-        .scent-option:hover h2 { opacity: 1; letter-spacing: 15px; color: var(--accent); }
+        /* ألوان الهوية */
+        .sauvage { --accent: #4A90E2; }
+        .stronger { --accent: #FF6B00; }
+        .libre { --accent: #D4AF37; }
+        .goodgirl { --accent: #9D00FF; }
 
-        /* [4] عالم العطر المستقل (The Scent Universe) */
-        .scent-universe {
-            min-height: 100vh;
-            display: none; /* كيكون مخفي حتى تكليكي */
-            padding: 50px 5%;
-            position: relative;
-            animation: fadeIn 1.5s forwards;
-        }
-
+        /* [2] عالم العطر المستقل */
+        .scent-universe { display: none; padding: 40px 5%; animation: fadeIn 1s; text-align: center; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* تنسيق الأصالة: القرعة الكبيرة والصغيرة */
-        .authenticity-view {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 50px;
-        }
-        @media (min-width: 992px) { .authenticity-view { flex-direction: row; } }
+        .back-btn { background: none; border: 1px solid #333; color: #888; padding: 10px 20px; cursor: pointer; margin-bottom: 30px; font-size: 0.7rem; }
 
-        .mother-bottle { width: 250px; filter: grayscale(30%); transition: 1s; }
-        .decant-bottle { width: 120px; filter: drop-shadow(0 0 20px var(--accent)); }
+        .auth-box { display: flex; flex-direction: column; align-items: center; gap: 30px; margin: 40px 0; }
+        @media (min-width: 992px) { .auth-box { flex-direction: row; justify-content: center; } }
 
-        /* [5] أزرار اختيار السعة (5ml / 10ml) */
-        .size-picker {
-            margin-top: 40px;
-            display: flex;
-            gap: 20px;
-        }
-        .size-btn {
-            padding: 15px 40px;
-            border: 1px solid #fff;
-            background: transparent;
-            color: #fff;
-            font-family: 'Cinzel';
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .size-btn:hover, .size-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #000;
-        }
+        .mother-img { width: 200px; filter: brightness(0.7); }
+        .decant-img { width: 100px; filter: drop-shadow(0 0 15px var(--accent)); }
 
-        /* ألوان الهوية لكل عطر (تقدر تزيد منهم قد ما بغيتي) */
-        .sauvage-theme { --accent: #4A90E2; }
-        .stronger-theme { --accent: #FF6B00; }
+        /* [3] الاستمارة (The Form) */
+        .order-form { max-width: 500px; margin: 40px auto; background: rgba(255,255,255,0.02); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .input-group { margin-bottom: 20px; text-align: right; }
+        .input-group label { display: block; font-size: 0.8rem; color: #888; margin-bottom: 8px; }
+        .input-group input, .input-group textarea { 
+            width: 100%; padding: 15px; background: #111; border: 1px solid #222; color: #fff; border-radius: 5px; 
+            font-family: 'Montserrat'; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--accent); }
+
+        /* اختيار الحجم */
+        .size-selector { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; }
+        .size-radio { 
+            padding: 15px 35px; border: 1px solid #333; cursor: pointer; transition: 0.3s; 
+            font-family: 'Cinzel'; font-size: 0.9rem;
+        }
+        .size-radio.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: bold; }
+
+        .submit-btn { 
+            width: 100%; padding: 20px; background: var(--accent); color: #000; 
+            border: none; font-family: 'Cinzel'; font-weight: bold; letter-spacing: 3px; 
+            cursor: pointer; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body>
 
-    <div class="velvet-bg"></div>
+    <div id="main-gate" class="gate-container">
+        <div class="scent-card sauvage" onclick="openScent('sauvage-elixir')">
+            <img src="assets/sauvage.png" alt="Sauvage">
+            <h2>SAUVAGE<br>ELIXIR</h2>
+        </div>
+        <div class="scent-card stronger" onclick="openScent('stronger-intensely')">
+            <img src="assets/stronger.png" alt="Stronger">
+            <h2>STRONGER WITH YOU<br>INTENSELY</h2>
+        </div>
+        <div class="scent-card libre" onclick="openScent('libre-intense')">
+            <img src="assets/libre.png" alt="Libre">
+            <h2>LIBRE<br>INTENSE</h2>
+        </div>
+        <div class="scent-card goodgirl" onclick="openScent('goodgirl-carolina')">
+            <img src="assets/goodgirl.png" alt="Good Girl">
+            <h2>GOOD GIRL<br>CAROLINA</h2>
+        </div>
+    </div>
 
-    <div id="gate" class="main-gate">
+    <section id="sauvage-elixir" class="scent-universe sauvage">
+        <button class="back-btn" onclick="goBack()">← العودة للمجموعة</button>
         
-        <div class="scent-option sauvage-theme" onclick="openUniverse('sauvage-ui')">
-            <h2>SAUVAGE</h2>
-            </div>
-
-        <div class="scent-option stronger-theme" onclick="openUniverse('stronger-ui')">
-            <h2>STRONGER</h2>
+        <div class="auth-box">
+            <div><p style="font-size:0.6rem; color:#555; margin-bottom:10px;">الزجاجة الأصلية</p>
+                <img src="assets/sauvage.png" class="mother-img"></div>
+            <div style="font-size: 2rem; color: var(--accent)">←</div>
+            <div><p style="font-size:0.6rem; color:#555; margin-bottom:10px;">تقسيمة Velooria</p>
+                <img src="assets/decant.png" class="decant-img"></div>
         </div>
 
-        </div>
-
-    <section id="sauvage-ui" class="scent-universe sauvage-theme">
-        <button onclick="closeUniverse()" style="color:#fff; background:none; border:none; cursor:pointer;">← BACK TO COLLECTION</button>
+        <h1 style="font-family:'Cinzel'; color: var(--accent);">SAUVAGE ELIXIR</h1>
         
-        <div class="authenticity-view">
-            <div style="text-align:center;">
-                <p style="font-size: 10px; letter-spacing: 3px; color: #555;">THE SOURCE</p>
-                <img src="assets/sauvage-big.png" class="mother-bottle" alt="Original Bottle">
+        <div class="order-form">
+            <div class="size-selector">
+                <div class="size-radio" onclick="selectSize(this, '160 DH')">5ML</div>
+                <div class="size-radio" onclick="selectSize(this, '310 DH')">10ML</div>
             </div>
-
-            <div style="color: var(--accent); font-size: 2rem;">→</div>
-
-            <div style="text-align:center;">
-                <p style="font-size: 10px; letter-spacing: 3px; color: #555;">YOUR SELECTION</p>
-                <img src="assets/decant-bottle.png" class="decant-bottle">
-            </div>
-        </div>
-
-        <div style="text-align:center; margin-top: 50px;">
-            <h1 style="font-family:'Cinzel'; letter-spacing: 10px;">SAUVAGE ELIXIR</h1>
-            <p style="max-width:600px; margin: 20px auto; color: #888;">Pure essence, hand-decanted from the original masterpiece.</p>
             
-            <div class="size-picker" style="justify-content: center;">
-                <button class="size-btn" onclick="updatePrice(this, '160 DH')">5ML</button>
-                <button class="size-btn" onclick="updatePrice(this, '310 DH')">10ML</button>
+            <h3 id="display-price" style="margin-bottom:20px; font-family:'Cinzel';">إختر الحجم</h3>
+
+            <div class="input-group">
+                <label>الإسم الكامل</label>
+                <input type="text" placeholder="الإسم الكامل">
             </div>
-            <h2 id="price-tag" style="margin-top: 30px; font-family:'Cinzel';">SELECT SIZE</h2>
-            <button style="margin-top:20px; padding: 20px 80px; background: #fff; color: #000; border: none; font-family:'Cinzel'; letter-spacing: 5px; cursor:pointer;">ORDER NOW</button>
+            <div class="input-group">
+                <label>رقم الهاتف</label>
+                <input type="tel" placeholder="06XXXXXXXX">
+            </div>
+            <div class="input-group">
+                <label>المدينة</label>
+                <input type="text" placeholder="المدينة">
+            </div>
+            <div class="input-group">
+                <label>ملاحظة (اختياري)</label>
+                <textarea rows="3"></textarea>
+            </div>
+            <button class="submit-btn">إحجز الآن</button>
         </div>
     </section>
 
     <script>
-        // دالة كتحل عالم العطر وكتخبي الواجهة الرئيسية
-        function openUniverse(id) {
-            document.getElementById('gate').style.display = 'none';
+        function openScent(id) {
+            document.getElementById('main-gate').style.display = 'none';
             document.getElementById(id).style.display = 'block';
             window.scrollTo(0,0);
         }
 
-        // دالة كترجعك للواجهة الرئيسية
-        function closeUniverse() {
-            // كتمسح كاع العوالم اللي مفتوحين
-            const universes = document.querySelectorAll('.scent-universe');
-            universes.forEach(u => u.style.display = 'none');
-            
-            document.getElementById('gate').style.display = 'flex';
+        function goBack() {
+            // كتمسح كاع الأقسام المفتوحة
+            const sections = document.querySelectorAll('.scent-universe');
+            sections.forEach(s => s.style.display = 'none');
+            document.getElementById('main-gate').style.display = 'flex';
         }
 
-        // دالة كتبدل الثمن فاش الزبون كيختار 5مل أو 10مل
-        function updatePrice(btn, price) {
-            // حيد "اللون النشط" من كاع الأزرار
-            const btns = btn.parentElement.querySelectorAll('.size-btn');
-            btns.forEach(b => b.classList.remove('active'));
+        function selectSize(element, price) {
+            // حيد الاختيار من الأزرار الأخرى فـ نفس القسم
+            const parent = element.parentElement;
+            parent.querySelectorAll('.size-radio').forEach(r => r.classList.remove('active'));
+            element.classList.add('active');
             
-            // زيد اللون النشط للزر اللي تبرك عليه
-            btn.classList.add('active');
-            
-            // بدل نص الثمن
-            document.getElementById('price-tag').innerText = price;
+            // تحديث الثمن
+            element.closest('.scent-universe').querySelector('#display-price').innerText = price;
         }
     </script>
-
 </body>
 </html>
