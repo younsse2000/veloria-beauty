@@ -1,3 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOORIA | THE NEW ERA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --accent-color: #c5a059; /* ذهبي باهت فخم */
+            --text-color: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* الكورسر المخصص */
+        #custom-cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        #cursor-follower {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease, width 0.3s, height 0.3s;
+        }
+
+        /* Header */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        .logo {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 8px;
+            font-size: 1.2rem;
+        }
+
+        /* Hero Section */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .reveal-text {
+            overflow: hidden;
+        }
+        .reveal-text h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 400;
+            transform: translateY(100%);
+            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Product Card */
+        .product-card {
+            display: flex;
+            gap: 100px;
+            align-items: center;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-img {
+            width: 40%;
+            filter: grayscale(100%);
+            transition: filter 0.8s ease;
+        }
+        .product-img:hover { filter: grayscale(0%); }
+
+        .product-info h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        /* Future Section */
+        .future-section {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        .future-tag {
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .product-card { flex-direction: column; text-align: center; gap: 40px; }
+            .product-img { width: 80%; }
+            * { cursor: auto; }
+            #custom-cursor, #cursor-follower { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+    <div id="cursor-follower"></div>
+
+    <nav>
+        <div class="logo">VELOORIA</div>
+        <div style="font-size: 0.7rem; letter-spacing: 2px;">EDITION 2026</div>
+    </nav>
+
+    <section id="hero">
+        <div class="reveal-text">
+            <h1 id="hero-title">ESSENCE OF SILENCE</h1>
+        </div>
+        <p style="margin-top: 20px; font-weight: 200; letter-spacing: 3px; color: #888;">THE NEW COLLECTION</p>
+    </section>
+
+    <section>
+        <div class="product-card" id="p1">
+            <img src="https://via.placeholder.com/600x800/111/fff?text=SAUVAGE" alt="Product" class="product-img">
+            <div class="product-info">
+                <h2>01. NOIR</h2>
+                <p>An obsession with detail. A masterpiece of balance. Designed for those who speak without saying a word.</p>
+                <div style="margin-top: 30px; border-bottom: 1px solid #fff; display: inline-block; padding-bottom: 5px;">EXPLORE</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="future-section">
+        <span class="future-tag">The Vision</span>
+        <h2 style="font-family: 'Cinzel'; margin: 40px 0; font-weight: 400; max-width: 600px;">"WE ARE NOT JUST CREATING FRAGRANCES. WE ARE BUILDING AN EMPIRE OF SENSES."</h2>
+        <p style="color: #444; font-size: 0.9rem;">PHASE 02 : COMING SOON</p>
+    </section>
+
+    <script>
+        // حركة الكورسر
+        const cursor = document.getElementById('custom-cursor');
+        const follower = document.getElementById('cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX - 11 + 'px';
+                follower.style.top = e.clientY - 11 + 'px';
+            }, 50);
+        });
+
+        // تحريك العنوان عند التحميل
+        window.onload = () => {
+            document.getElementById('hero-title').style.transform = 'translateY(0)';
+        };
+
+        // ظهور العناصر عند السكرول (Reveal on Scroll)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
 <style>
     /* إضافة لمسة الفخامة القصوى */
     .perfume-container {
@@ -84,4 +285,118 @@
         <h3>GOOD GIRL</h3>
         <img src="goodgirl-png.png" class="bottle-preview">
     </div>
+</div>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+    .perfume-container {
+        display: flex;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        background: #000;
+        cursor: crosshair;
+    }
+
+    .fragrance-column {
+        flex: 1;
+        position: relative;
+        border-right: 0.1px solid rgba(255,255,255,0.05);
+        transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1); /* حركة أنعم وأثقل */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none !important;
+    }
+
+    /* العطر اللي كيدوز عليه الفار كيتوسع وكيغطي الآخرين شوية */
+    .fragrance-column:hover {
+        flex: 5;
+    }
+
+    .fragrance-column::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: radial-gradient(circle at center, var(--accent) 0%, transparent 70%);
+        opacity: 0;
+        transition: 0.8s;
+        z-index: 1;
+    }
+
+    .fragrance-column:hover::before {
+        opacity: 0.15; /* توهج خفيف فاش كيدوز فوقو */
+    }
+
+    .fragrance-column h3 {
+        font-family: 'Cinzel', serif;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        letter-spacing: 12px;
+        font-size: 0.9rem;
+        color: #fff;
+        opacity: 0.4;
+        transition: 0.6s;
+        z-index: 2;
+    }
+
+    .fragrance-column:hover h3 {
+        opacity: 1;
+        letter-spacing: 18px;
+        color: var(--accent);
+        transform: rotate(180deg) translateY(20px);
+    }
+
+    .bottle-preview {
+        position: absolute;
+        width: 140%; /* الصورة كتكون خارجة شوية باش تعطي الـ Impact */
+        max-width: 400px;
+        opacity: 0;
+        filter: brightness(0.5) blur(10px);
+        transition: all 1s ease;
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    .fragrance-column:hover .bottle-preview {
+        opacity: 1;
+        filter: brightness(1) blur(0);
+        transform: scale(1.15) translateY(-20px);
+    }
+
+    /* الألوان الخاصة */
+    .sauvage { --accent: #4A90E2; }
+    .stronger { --accent: #CD7F32; }
+    .libre { --accent: #D4AF37; }
+    .goodgirl { --accent: #1a4d99; }
+
+    @media (max-width: 768px) {
+        .perfume-container { flex-direction: column; }
+        .fragrance-column h3 { writing-mode: horizontal-tb; transform: none; font-size: 0.7rem; letter-spacing: 5px; }
+        .fragrance-column:hover { flex: 4; }
+        .fragrance-column:hover h3 { transform: none; }
+        .bottle-preview { width: 60%; }
+    }
+</style>
+
+<div class="perfume-container">
+    <a href="#sauvage-section" class="fragrance-column sauvage">
+        <h3>SAUVAGE ELIXIR</h3>
+        <img src="assets/sauvage-bottle.png" class="bottle-preview">
+    </a>
+    
+    <a href="#stronger-section" class="fragrance-column stronger">
+        <h3>STRONGER WITH YOU</h3>
+        <img src="assets/stronger-bottle.png" class="bottle-preview">
+    </a>
+
+    <a href="#libre-section" class="fragrance-column libre">
+        <h3>LIBRE INTENSE</h3>
+        <img src="assets/libre-bottle.png" class="bottle-preview">
+    </a>
+
+    <a href="#goodgirl-section" class="fragrance-column goodgirl">
+        <h3>GOOD GIRL</h3>
+        <img src="assets/goodgirl-bottle.png" class="bottle-preview">
+    </a>
 </div>
