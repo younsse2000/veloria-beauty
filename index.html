@@ -11,8 +11,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--main-bg); color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        /* [1] الواجهة الرئيسية (الأربعة عطور) */
-        .gate-container { height: 100vh; display: flex; flex-direction: column; transition: 0.8s; }
+        /* الواجهة الرئيسية */
+        .gate-container { height: 100vh; display: flex; flex-direction: column; }
         @media (min-width: 992px) { .gate-container { flex-direction: row; } }
 
         .scent-card { 
@@ -21,36 +21,35 @@
             border: 0.5px solid rgba(255,255,255,0.05);
         }
         .scent-card:hover { flex: 3; }
-
-        .scent-card h2 { font-family: 'Cinzel'; font-size: 1.2rem; letter-spacing: 3px; z-index: 2; text-align: center; }
+        .scent-card h2 { font-family: 'Cinzel'; font-size: 1.1rem; letter-spacing: 3px; z-index: 2; text-align: center; pointer-events: none; }
         .scent-card img { position: absolute; height: 60%; opacity: 0.1; transition: 0.7s; transform: scale(0.8); }
         .scent-card:hover img { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 20px var(--accent)); }
 
-        /* ألوان الهوية */
+        /* الألوان */
         .sauvage { --accent: #4A90E2; }
         .stronger { --accent: #FF6B00; }
         .libre { --accent: #D4AF37; }
         .goodgirl { --accent: #9D00FF; }
 
-        /* [2] عالم العطر المستقل */
-        .scent-universe { display: none; padding: 40px 5%; animation: fadeIn 1s; text-align: center; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* عوالم العطور */
+        .scent-universe { display: none; padding: 40px 5%; animation: fadeIn 0.8s; text-align: center; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .back-btn { background: none; border: 1px solid #333; color: #888; padding: 10px 20px; cursor: pointer; margin-bottom: 30px; font-size: 0.7rem; }
+        .back-btn { background: none; border: 1px solid #333; color: #888; padding: 10px 20px; cursor: pointer; margin-bottom: 30px; font-size: 0.7rem; font-family: 'Montserrat'; }
 
         .auth-box { display: flex; flex-direction: column; align-items: center; gap: 30px; margin: 40px 0; }
         @media (min-width: 992px) { .auth-box { flex-direction: row; justify-content: center; } }
 
-        .mother-img { width: 200px; filter: brightness(0.7); }
-        .decant-img { width: 100px; filter: drop-shadow(0 0 15px var(--accent)); }
+        .mother-img { width: 180px; filter: brightness(0.8); }
+        .decant-img { width: 90px; filter: drop-shadow(0 0 15px var(--accent)); }
 
-        /* [3] الاستمارة (The Form) */
+        /* الاستمارة */
         .order-form { max-width: 500px; margin: 40px auto; background: rgba(255,255,255,0.02); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .input-group { margin-bottom: 20px; text-align: right; }
         .input-group label { display: block; font-size: 0.8rem; color: #888; margin-bottom: 8px; }
         .input-group input, .input-group textarea { 
             width: 100%; padding: 15px; background: #111; border: 1px solid #222; color: #fff; border-radius: 5px; 
-            font-family: 'Montserrat'; outline: none; transition: 0.3s;
+            font-family: 'Montserrat'; outline: none; transition: 0.3s; text-align: right;
         }
         .input-group input:focus { border-color: var(--accent); }
 
@@ -65,7 +64,7 @@
         .submit-btn { 
             width: 100%; padding: 20px; background: var(--accent); color: #000; 
             border: none; font-family: 'Cinzel'; font-weight: bold; letter-spacing: 3px; 
-            cursor: pointer; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            cursor: pointer; font-size: 1.1rem;
         }
     </style>
 </head>
@@ -73,60 +72,107 @@
 
     <div id="main-gate" class="gate-container">
         <div class="scent-card sauvage" onclick="openScent('sauvage-elixir')">
-            <img src="assets/sauvage.png" alt="Sauvage">
+            <img src="assets/sauvage.png">
             <h2>SAUVAGE<br>ELIXIR</h2>
         </div>
         <div class="scent-card stronger" onclick="openScent('stronger-intensely')">
-            <img src="assets/stronger.png" alt="Stronger">
+            <img src="assets/stronger.png">
             <h2>STRONGER WITH YOU<br>INTENSELY</h2>
         </div>
         <div class="scent-card libre" onclick="openScent('libre-intense')">
-            <img src="assets/libre.png" alt="Libre">
+            <img src="assets/libre.png">
             <h2>LIBRE<br>INTENSE</h2>
         </div>
         <div class="scent-card goodgirl" onclick="openScent('goodgirl-carolina')">
-            <img src="assets/goodgirl.png" alt="Good Girl">
+            <img src="assets/goodgirl.png">
             <h2>GOOD GIRL<br>CAROLINA</h2>
         </div>
     </div>
 
     <section id="sauvage-elixir" class="scent-universe sauvage">
         <button class="back-btn" onclick="goBack()">← العودة للمجموعة</button>
-        
         <div class="auth-box">
-            <div><p style="font-size:0.6rem; color:#555; margin-bottom:10px;">الزجاجة الأصلية</p>
-                <img src="assets/sauvage.png" class="mother-img"></div>
+            <img src="assets/sauvage.png" class="mother-img">
             <div style="font-size: 2rem; color: var(--accent)">←</div>
-            <div><p style="font-size:0.6rem; color:#555; margin-bottom:10px;">تقسيمة Velooria</p>
-                <img src="assets/decant.png" class="decant-img"></div>
+            <img src="assets/decant.png" class="decant-img">
         </div>
-
         <h1 style="font-family:'Cinzel'; color: var(--accent);">SAUVAGE ELIXIR</h1>
-        
         <div class="order-form">
             <div class="size-selector">
                 <div class="size-radio" onclick="selectSize(this, '160 DH')">5ML</div>
                 <div class="size-radio" onclick="selectSize(this, '310 DH')">10ML</div>
             </div>
-            
-            <h3 id="display-price" style="margin-bottom:20px; font-family:'Cinzel';">إختر الحجم</h3>
+            <h3 class="price-display" style="margin-bottom:20px; font-family:'Cinzel';">إختر الحجم</h3>
+            <div class="input-group"><label>الإسم الكامل</label><input type="text"></div>
+            <div class="input-group"><label>رقم الهاتف</label><input type="tel"></div>
+            <div class="input-group"><label>المدينة</label><input type="text"></div>
+            <div class="input-group"><label>ملاحظة</label><textarea rows="2"></textarea></div>
+            <button class="submit-btn">إحجز الآن</button>
+        </div>
+    </section>
 
-            <div class="input-group">
-                <label>الإسم الكامل</label>
-                <input type="text" placeholder="الإسم الكامل">
+    <section id="stronger-intensely" class="scent-universe stronger">
+        <button class="back-btn" onclick="goBack()">← العودة للمجموعة</button>
+        <div class="auth-box">
+            <img src="assets/stronger.png" class="mother-img">
+            <div style="font-size: 2rem; color: var(--accent)">←</div>
+            <img src="assets/decant.png" class="decant-img">
+        </div>
+        <h1 style="font-family:'Cinzel'; color: var(--accent);">STRONGER WITH YOU</h1>
+        <div class="order-form">
+            <div class="size-selector">
+                <div class="size-radio" onclick="selectSize(this, '160 DH')">5ML</div>
+                <div class="size-radio" onclick="selectSize(this, '310 DH')">10ML</div>
             </div>
-            <div class="input-group">
-                <label>رقم الهاتف</label>
-                <input type="tel" placeholder="06XXXXXXXX">
+            <h3 class="price-display" style="margin-bottom:20px; font-family:'Cinzel';">إختر الحجم</h3>
+            <div class="input-group"><label>الإسم الكامل</label><input type="text"></div>
+            <div class="input-group"><label>رقم الهاتف</label><input type="tel"></div>
+            <div class="input-group"><label>المدينة</label><input type="text"></div>
+            <div class="input-group"><label>ملاحظة</label><textarea rows="2"></textarea></div>
+            <button class="submit-btn">إحجز الآن</button>
+        </div>
+    </section>
+
+    <section id="libre-intense" class="scent-universe libre">
+        <button class="back-btn" onclick="goBack()">← العودة للمجموعة</button>
+        <div class="auth-box">
+            <img src="assets/libre.png" class="mother-img">
+            <div style="font-size: 2rem; color: var(--accent)">←</div>
+            <img src="assets/decant.png" class="decant-img">
+        </div>
+        <h1 style="font-family:'Cinzel'; color: var(--accent);">LIBRE INTENSE</h1>
+        <div class="order-form">
+            <div class="size-selector">
+                <div class="size-radio" onclick="selectSize(this, '160 DH')">5ML</div>
+                <div class="size-radio" onclick="selectSize(this, '310 DH')">10ML</div>
             </div>
-            <div class="input-group">
-                <label>المدينة</label>
-                <input type="text" placeholder="المدينة">
+            <h3 class="price-display" style="margin-bottom:20px; font-family:'Cinzel';">إختر الحجم</h3>
+            <div class="input-group"><label>الإسم الكامل</label><input type="text"></div>
+            <div class="input-group"><label>رقم الهاتف</label><input type="tel"></div>
+            <div class="input-group"><label>المدينة</label><input type="text"></div>
+            <div class="input-group"><label>ملاحظة</label><textarea rows="2"></textarea></div>
+            <button class="submit-btn">إحجز الآن</button>
+        </div>
+    </section>
+
+    <section id="goodgirl-carolina" class="scent-universe goodgirl">
+        <button class="back-btn" onclick="goBack()">← العودة للمجموعة</button>
+        <div class="auth-box">
+            <img src="assets/goodgirl.png" class="mother-img">
+            <div style="font-size: 2rem; color: var(--accent)">←</div>
+            <img src="assets/decant.png" class="decant-img">
+        </div>
+        <h1 style="font-family:'Cinzel'; color: var(--accent);">GOOD GIRL CAROLINA</h1>
+        <div class="order-form">
+            <div class="size-selector">
+                <div class="size-radio" onclick="selectSize(this, '160 DH')">5ML</div>
+                <div class="size-radio" onclick="selectSize(this, '310 DH')">10ML</div>
             </div>
-            <div class="input-group">
-                <label>ملاحظة (اختياري)</label>
-                <textarea rows="3"></textarea>
-            </div>
+            <h3 class="price-display" style="margin-bottom:20px; font-family:'Cinzel';">إختر الحجم</h3>
+            <div class="input-group"><label>الإسم الكامل</label><input type="text"></div>
+            <div class="input-group"><label>رقم الهاتف</label><input type="tel"></div>
+            <div class="input-group"><label>المدينة</label><input type="text"></div>
+            <div class="input-group"><label>ملاحظة</label><textarea rows="2"></textarea></div>
             <button class="submit-btn">إحجز الآن</button>
         </div>
     </section>
@@ -139,20 +185,14 @@
         }
 
         function goBack() {
-            // كتمسح كاع الأقسام المفتوحة
-            const sections = document.querySelectorAll('.scent-universe');
-            sections.forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.scent-universe').forEach(s => s.style.display = 'none');
             document.getElementById('main-gate').style.display = 'flex';
         }
 
         function selectSize(element, price) {
-            // حيد الاختيار من الأزرار الأخرى فـ نفس القسم
-            const parent = element.parentElement;
-            parent.querySelectorAll('.size-radio').forEach(r => r.classList.remove('active'));
+            element.parentElement.querySelectorAll('.size-radio').forEach(r => r.classList.remove('active'));
             element.classList.add('active');
-            
-            // تحديث الثمن
-            element.closest('.scent-universe').querySelector('#display-price').innerText = price;
+            element.closest('.scent-universe').querySelector('.price-display').innerText = price;
         }
     </script>
 </body>
